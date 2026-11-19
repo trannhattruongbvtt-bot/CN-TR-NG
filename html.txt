@@ -1,0 +1,368 @@
+html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>KTV TRƯỜNG</title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-light: #ccfbf1;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --danger: #dc2626;
+      --warn: #d97706;
+      --ok: #16a34a;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 92px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.4px;
+    }
+
+    header span {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .container {
+      padding: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 0 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-ok { background: #dcfce7; color: var(--ok); }
+    .badge-warn { background: #fef3c7; color: var(--warn); }
+    .badge-danger { background: #fee2e2; color: var(--danger); }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 10px 0 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 16px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 76px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: opacity 0.15s;
+    }
+
+    .btn:active { opacity: 0.85; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .chem-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chem-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .log-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .log-item:last-child { border-bottom: none; }
+
+    .log-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 74px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      z-index: 30;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav-item {
+      border: none;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .toast {
+      position: fixed;
+      top: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      z-index: 50;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>KTV TRƯỜNG</h1>
+      <span id="todayDate">Sổ tay kỹ thuật viên cá nhân</span>
+    </div>
+    <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;">Offline Ready</span>
+  </header>
+
+  <div id="toast" class="toast">Đã lưu dữ liệu!</div>
+
+  <div class="container">
+    <!-- TAB 1: NHẬT KÝ & QC -->
+    <section id="tab-qc" class="tab-content active">
+      <div class="card">
+        <div class="card-title">Ghi nhận Nội kiểm (QC) / Sự cố</div>
+        <label>Thiết bị / Hạng mục</label>
+        <select id="qcDevice">
+          <option value="ABX 60 ES - Huyết học">ABX 60 ES - Huyết học</option>
+          <option value="Sinh hóa / Miễn dịch">Sinh hóa / Miễn dịch</option>
+          <option value="Đông máu / Nước tiểu">Đông máu / Nước tiểu</option>
+          <option value="Bảo trì / Hiệu chuẩn">Bảo trì / Hiệu chuẩn</option>
+        </select>
+
+        <label>Kết quả / Trạng thái</label>
+        <select id="qcStatus">
+          <option value="Đạt (Pass)">Đạt (Pass)</option>
+          <option value="Cần theo dõi (Warning)">Cần theo dõi (Warning)</option>
+          <option value="Lỗi / Hiệu chỉnh (Fail)">Lỗi / Hiệu chỉnh (Fail)</option>
+        </select>
+
+        <label>Số lô (Lot) & Ghi chú nhanh</label>
+        <textarea id="qcNote" placeholder="VD: QC mức 1-2 đạt, đã chỉnh Gain WBC theo lô mới..."></textarea>
+
+        <button class="btn btn-primary" onclick="addQcLog()">+ Lưu bản ghi ngay</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>Lịch sử gần đây</span>
+          <span id="qcCount" style="font-size:12px;color:var(--muted);">0 mục</span>
+        </div>
+        <div id="qcList"></div>
+      </div>
+    </section>
+
+    <!-- TAB 2: TỒN HÓA CHẤT -->
+    <section id="tab-chem" class="tab-content">
+      <div class="card">
+        <div class="card-title">Quản lý Tồn kho Hóa chất</div>
+        <div id="chemList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Thêm hóa chất / vật tư mới</div>
+        <label>Tên hóa chất / dung dịch</label>
+        <input type="text" id="newChemName" placeholder="VD: Diluent 20L, Lyse 1L, QC Control..." />
+        <label>Số lượng hiện có</label>
+        <input type="number" id="newChemQty" value="1" min="0" step="0.5" />
+        <label>Đơn vị tính</label>
+        <input type="text" id="newChemUnit" placeholder="VD: Bình, Chai, Lọ (ml), Bộ" />
+        <button class="btn btn-primary" onclick="addChem()">+ Thêm vào kho</button>
+      </div>
+    </section>
+
+    <!-- TAB 3: VIỆC CẦN LÀM -->
+    <section id="tab-todo" class="tab-content">
+      <div class="card">
+        <div class="card-title">Nhắc việc & Lịch bảo trì</div>
+        <label>Nội dung công việc</label>
+        <input type="text" id="todoInput" placeholder="VD: Rửa kim hút cuối ca, đặt hóa chất quý..." />
+        <button class="btn btn-primary" onclick="addTodo()">+ Thêm việc cần làm</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Danh sách công việc</div>
+        <div id="todoList"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: SAO LƯU -->
+    <section id="tab-backup" class="tab-content">
+      <div class="card">
+        <div class="card-title">An toàn & Sao lưu Dữ liệu</div>
+        <p style="font-size:14px;color:var(--muted);line-height:1.5;margin-top:0;">
+          Dữ liệu được lưu trực tiếp trên điện thoại này. Bạn nên sao lưu định kỳ để tránh mất dữ liệu nếu xóa lịch sử trình duyệt.
+        </p>
+        <button class="btn btn-primary" onclick="exportData()">Tải file sao lưu (.json)</button>
+        <label style="margin-top:16px;">Khôi phục từ file sao lưu</label>
+        <input type="file" id="importFile" accept=".json" onchange="importData(event)" />
+        <button class="btn btn-danger" style="margin-top:24px;" onclick="resetDefault()">Khôi phục dữ liệu mặc định</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- THANH ĐIỀU HƯỚNG DƯỚI CÙNG (DỄ BẤM 1 TAY) -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('qc', this)">
+      <span class="nav-icon">📋</span>
+      <span>Nhật ký QC</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('chem', this)">
+      <span class="nav-icon">🧪</span>
+      <span>Hóa chất</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('todo', this)">
+      <span class="nav-icon">✅</span>
+      <span>Nhắc việc</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('backup', this)">
+      <span class="nav-icon">💾</span>
+      <span>Sao lưu</span>
+    </button>
+  </nav>
+
+  <script>
