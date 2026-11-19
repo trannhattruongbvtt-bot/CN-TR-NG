@@ -10,7 +10,7 @@
   <style>
     :root {
       --primary: #0f766e;
-      --primary-light: #ccfbf1;
+      --primary-dark: #115e59;
       --bg: #f1f5f9;
       --card: #ffffff;
       --text: #0f172a;
@@ -31,7 +31,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 92px;
+      padding-bottom: 94px;
     }
 
     header {
@@ -44,7 +44,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
     }
 
     header h1 {
@@ -55,12 +55,12 @@
 
     header span {
       font-size: 12px;
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .container {
-      padding: 14px;
-      max-width: 520px;
+      padding: 12px;
+      max-width: 540px;
       margin: 0 auto;
     }
 
@@ -90,63 +90,49 @@
       align-items: center;
     }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
-
-    .row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .badge {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .badge-ok { background: #dcfce7; color: var(--ok); }
-    .badge-warn { background: #fef3c7; color: var(--warn); }
-    .badge-danger { background: #fee2e2; color: var(--danger); }
 
     label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--muted);
-      margin: 10px 0 5px;
+      margin: 8px 0 4px;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 11px 12px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      font-size: 16px;
+      font-size: 15px;
       background: #fff;
       color: var(--text);
     }
 
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
     textarea {
       resize: vertical;
-      min-height: 76px;
+      min-height: 70px;
     }
 
     .btn {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       border: none;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       margin-top: 12px;
-      transition: opacity 0.15s;
     }
 
     .btn:active { opacity: 0.85; }
@@ -155,45 +141,61 @@
     .btn-danger { background: #fee2e2; color: var(--danger); }
 
     .btn-sm {
-      padding: 8px 12px;
-      font-size: 13px;
+      padding: 6px 10px;
+      font-size: 12px;
       border-radius: 8px;
       border: none;
       font-weight: 600;
       cursor: pointer;
     }
 
-    .chem-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .chem-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #f8fafc;
-      font-size: 20px;
+    .badge {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
       font-weight: 700;
-      color: var(--primary);
-      cursor: pointer;
+      display: inline-block;
     }
 
-    .log-item {
+    .badge-ok { background: #dcfce7; color: var(--ok); }
+    .badge-warn { background: #fef3c7; color: var(--warn); }
+    .badge-danger { background: #fee2e2; color: var(--danger); }
+
+    .item-box {
       padding: 10px 0;
       border-bottom: 1px solid var(--border);
     }
 
-    .log-item:last-child { border-bottom: none; }
+    .item-box:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
 
-    .log-meta {
-      font-size: 12px;
-      color: var(--muted);
+    .item-header {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
       margin-bottom: 4px;
+    }
+
+    .chem-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chem-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
     }
 
     .bottom-nav {
@@ -235,16 +237,18 @@
 
     .toast {
       position: fixed;
-      top: 64px;
+      top: 66px;
       left: 50%;
       transform: translateX(-50%);
-      background: #1e293b;
+      background: #0f172a;
       color: #fff;
-      padding: 10px 16px;
+      padding: 10px 18px;
       border-radius: 999px;
       font-size: 13px;
+      font-weight: 600;
       z-index: 50;
       display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -253,115 +257,122 @@
   <header>
     <div>
       <h1>KTV TRƯỜNG</h1>
-      <span id="todayDate">Sổ tay kỹ thuật viên cá nhân</span>
+      <span id="todayDate">Sổ tay kỹ thuật viên xét nghiệm</span>
     </div>
-    <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;">Offline Ready</span>
+    <span id="storageBadge" class="badge" style="background:rgba(255,255,255,0.2);color:#fff;">Đã kết nối bộ nhớ</span>
   </header>
 
   <div id="toast" class="toast">Đã lưu dữ liệu!</div>
 
   <div class="container">
-    <!-- TAB 1: NHẬT KÝ & QC -->
+    <!-- TAB 1: NHẬT KÝ QC & VẬN HÀNH -->
     <section id="tab-qc" class="tab-content active">
       <div class="card">
-        <div class="card-title">Ghi nhận Nội kiểm (QC) / Sự cố</div>
-        <label>Thiết bị / Hạng mục</label>
-        <select id="qcDevice">
-          <option value="ABX 60 ES - Huyết học">ABX 60 ES - Huyết học</option>
-          <option value="Sinh hóa / Miễn dịch">Sinh hóa / Miễn dịch</option>
-          <option value="Đông máu / Nước tiểu">Đông máu / Nước tiểu</option>
-          <option value="Bảo trì / Hiệu chuẩn">Bảo trì / Hiệu chuẩn</option>
-        </select>
+        <div class="card-title">Ghi nhận Nội kiểm (QC) / Kỹ thuật</div>
+        
+        <div class="grid-2">
+          <div>
+            <label>Thiết bị / Hệ thống</label>
+            <select id="qcDevice">
+              <option value="ABX 60 ES - Huyết học">ABX 60 ES - Huyết học</option>
+              <option value="Máy Sinh hóa">Máy Sinh hóa</option>
+              <option value="Máy Miễn dịch">Máy Miễn dịch</option>
+              <option value="Máy Đông máu / Nước tiểu">Đông máu / Nước tiểu</option>
+              <option value="Bảo trì / Hiệu chuẩn">Bảo trì / Hiệu chuẩn</option>
+            </select>
+          </div>
+          <div>
+            <label>Đánh giá kết quả</label>
+            <select id="qcStatus">
+              <option value="Đạt (Pass)">Đạt (Pass)</option>
+              <option value="Theo dõi (Warn)">Theo dõi (Warn)</option>
+              <option value="Lỗi / Chỉnh máy">Lỗi / Chỉnh máy</option>
+            </select>
+          </div>
+        </div>
 
-        <label>Kết quả / Trạng thái</label>
-        <select id="qcStatus">
-          <option value="Đạt (Pass)">Đạt (Pass)</option>
-          <option value="Cần theo dõi (Warning)">Cần theo dõi (Warning)</option>
-          <option value="Lỗi / Hiệu chỉnh (Fail)">Lỗi / Hiệu chỉnh (Fail)</option>
-        </select>
+        <div class="grid-2">
+          <div>
+            <label>Số lô (Lot) QC / Hóa chất</label>
+            <input type="text" id="qcLot" placeholder="VD: Lot 2409A" />
+          </div>
+          <div>
+            <label>Người thực hiện / Ca trực</label>
+            <input type="text" id="qcShift" value="KTV Trường" />
+          </div>
+        </div>
 
-        <label>Số lô (Lot) & Ghi chú nhanh</label>
-        <textarea id="qcNote" placeholder="VD: QC mức 1-2 đạt, đã chỉnh Gain WBC theo lô mới..."></textarea>
+        <label>Chi tiết thông số & Xử lý kỹ thuật</label>
+        <textarea id="qcNote" placeholder="VD: Chạy QC 3 mức đạt. Chỉnh Gain WBC theo lô hóa chất mới..."></textarea>
 
-        <button class="btn btn-primary" onclick="addQcLog()">+ Lưu bản ghi ngay</button>
+        <button type="button" class="btn btn-primary" id="btnSaveQc">+ Lưu bản ghi vào sổ</button>
       </div>
 
       <div class="card">
         <div class="card-title">
-          <span>Lịch sử gần đây</span>
+          <span>Lịch sử đã lưu</span>
           <span id="qcCount" style="font-size:12px;color:var(--muted);">0 mục</span>
         </div>
         <div id="qcList"></div>
       </div>
     </section>
 
-    <!-- TAB 2: TỒN HÓA CHẤT -->
+    <!-- TAB 2: QUẢN LÝ HÓA CHẤT -->
     <section id="tab-chem" class="tab-content">
       <div class="card">
-        <div class="card-title">Quản lý Tồn kho Hóa chất</div>
+        <div class="card-title">
+          <span>Tồn kho Hóa chất & Vật tư</span>
+          <span id="chemCount" style="font-size:12px;color:var(--muted);">0 loại</span>
+        </div>
         <div id="chemList"></div>
       </div>
 
       <div class="card">
-        <div class="card-title">Thêm hóa chất / vật tư mới</div>
+        <div class="card-title">Nhập thêm hóa chất mới</div>
         <label>Tên hóa chất / dung dịch</label>
-        <input type="text" id="newChemName" placeholder="VD: Diluent 20L, Lyse 1L, QC Control..." />
-        <label>Số lượng hiện có</label>
-        <input type="number" id="newChemQty" value="1" min="0" step="0.5" />
-        <label>Đơn vị tính</label>
-        <input type="text" id="newChemUnit" placeholder="VD: Bình, Chai, Lọ (ml), Bộ" />
-        <button class="btn btn-primary" onclick="addChem()">+ Thêm vào kho</button>
+        <input type="text" id="newChemName" placeholder="VD: Diluent 20L, Cleaner 5L, Lyse 1L..." />
+        
+        <div class="grid-2">
+          <div>
+            <label>Số lượng nhập</label>
+            <input type="number" id="newChemQty" value="1" min="0" step="0.5" />
+          </div>
+          <div>
+            <label>Đơn vị tính</label>
+            <input type="text" id="newChemUnit" placeholder="Bình, Can, Chai, ml..." />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Số lô (Lot)</label>
+            <input type="text" id="newChemLot" placeholder="VD: L2611" />
+          </div>
+          <div>
+            <label>Hạn sử dụng (HSD)</label>
+            <input type="date" id="newChemExp" />
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnAddChem">+ Thêm vào kho</button>
       </div>
     </section>
 
-    <!-- TAB 3: VIỆC CẦN LÀM -->
+    <!-- TAB 3: NHẮC VIỆC & BẢO TRÌ -->
     <section id="tab-todo" class="tab-content">
       <div class="card">
-        <div class="card-title">Nhắc việc & Lịch bảo trì</div>
+        <div class="card-title">Thêm việc cần làm / Lịch bảo trì</div>
         <label>Nội dung công việc</label>
-        <input type="text" id="todoInput" placeholder="VD: Rửa kim hút cuối ca, đặt hóa chất quý..." />
-        <button class="btn btn-primary" onclick="addTodo()">+ Thêm việc cần làm</button>
-      </div>
+        <input type="text" id="todoInput" placeholder="VD: Rửa kim hút cuối ngày, dự trù hóa chất..." />
+        <div class="grid-2">
+          <div>
+            <label>Mức độ ưu tiên</label>
+            <select id="todoPriority">
+              <option value="Hằng ngày">Hằng ngày</option>
+              <option value="Gấp / Quan trọng">Gấp / Quan trọng</option>
+              <option value="Định kỳ tuần/tháng">Định kỳ tuần/tháng</option>
+            </select>
+          </div>
+          <div>
+            <label>Hạn hoàn thành</label>
 
-      <div class="card">
-        <div class="card-title">Danh sách công việc</div>
-        <div id="todoList"></div>
-      </div>
-    </section>
-
-    <!-- TAB 4: SAO LƯU -->
-    <section id="tab-backup" class="tab-content">
-      <div class="card">
-        <div class="card-title">An toàn & Sao lưu Dữ liệu</div>
-        <p style="font-size:14px;color:var(--muted);line-height:1.5;margin-top:0;">
-          Dữ liệu được lưu trực tiếp trên điện thoại này. Bạn nên sao lưu định kỳ để tránh mất dữ liệu nếu xóa lịch sử trình duyệt.
-        </p>
-        <button class="btn btn-primary" onclick="exportData()">Tải file sao lưu (.json)</button>
-        <label style="margin-top:16px;">Khôi phục từ file sao lưu</label>
-        <input type="file" id="importFile" accept=".json" onchange="importData(event)" />
-        <button class="btn btn-danger" style="margin-top:24px;" onclick="resetDefault()">Khôi phục dữ liệu mặc định</button>
-      </div>
-    </section>
-  </div>
-
-  <!-- THANH ĐIỀU HƯỚNG DƯỚI CÙNG (DỄ BẤM 1 TAY) -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('qc', this)">
-      <span class="nav-icon">📋</span>
-      <span>Nhật ký QC</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('chem', this)">
-      <span class="nav-icon">🧪</span>
-      <span>Hóa chất</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('todo', this)">
-      <span class="nav-icon">✅</span>
-      <span>Nhắc việc</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('backup', this)">
-      <span class="nav-icon">💾</span>
-      <span>Sao lưu</span>
-    </button>
-  </nav>
-
-  <script>
